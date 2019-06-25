@@ -3,6 +3,9 @@ package utad.flink.examples
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.api.scala._
 
+/**
+  * Usage: WordCount --input <path> --output <path>
+  */
 object WordCount extends App {
 
   val params = ParameterTool.fromArgs(args)
