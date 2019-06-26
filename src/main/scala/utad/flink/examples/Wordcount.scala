@@ -9,7 +9,7 @@ import org.apache.flink.api.scala._
   *
   * Using Flink run:
   *   mvn package
-  *   flink-1.8.0/bin/flink run flink-examples/target/flink-examples-0.1-SNAPSHOT.jar --input flink-examples/src/main/resources/pg2000.txt --output /tmp/testflink/wordcount.out
+  *   flink-1.8.0/bin/flink run flink-examples/target/flink-examples-0.1-SNAPSHOT.jar --input flink-examples/src/main/resources/pg16961.txt --output /tmp/testflink/wordcount.out
   */
 object WordCount extends App {
 
