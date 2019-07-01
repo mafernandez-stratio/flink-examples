@@ -19,14 +19,13 @@ object Twitter extends App {
 
   env.setParallelism(1)
 
-  // get input data
   val streamSource: DataStream[String] = env.addSource(new TwitterSource(twitterCredentials))
 
   val tweets: DataStream[(String, Int)] = streamSource.flatMap(new SelectEnglishAndTokenizeFlatMap).keyBy(0).sum(1)
 
-  tweets.writeAsText(s"/tmp/flink/twitter/${System.currentTimeMillis}")
+  //tweets.writeAsText(s"/tmp/flink/twitter/${System.currentTimeMillis}")
+  tweets.print()
 
-  // execute program
   env.execute("Twitter Streaming Example")
 }
 
@@ -42,15 +41,16 @@ private class SelectEnglishAndTokenizeFlatMap extends FlatMapFunction[String, (S
 
   override def flatMap(value: String, out: Collector[(String, Int)]): Unit = {
     val jsonNode = jsonParser.readValue(value, classOf[JsonNode])
+    val isEnglish = jsonNode.has("lang") && jsonNode.get("lang").asText() == "en"
     val hasText = jsonNode.has("text")
 
-    (hasText, jsonNode) match {
-      case (true, node) => {
+    (isEnglish, hasText, jsonNode) match {
+      case (true, true, node) => {
         val tokenizer = new StringTokenizer(node.get("text").asText())
 
         while (tokenizer.hasMoreTokens) {
           val token = tokenizer.nextToken().replaceAll("\\s*", "").toLowerCase()
-          if (token.nonEmpty) out.collect((token, 1))
+          if (token.nonEmpty && token.length >= 5) out.collect((token, 1))
         }
       }
       case _ =>
