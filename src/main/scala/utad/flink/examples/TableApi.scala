@@ -5,7 +5,7 @@ import org.apache.flink.api.scala.typeutils.Types
 import org.apache.flink.table.api.scala._
 import org.apache.flink.table.sources.CsvTableSource
 
-case class Row1(month: String, sum: Int) {
+case class Row2(month: String, sum: Int) {
   override def toString: String = s"$month,$sum"
 }
 
@@ -38,7 +38,7 @@ object TableApi extends App {
     .select("month, profit.sum as sum")
     .orderBy("sum")
 
-  val order20Set = tableEnv.toDataSet[Row1](order20)
+  val order20Set = tableEnv.toDataSet[Row2](order20)
 
   //order20Set.writeAsText(s"/tmp/flink/tableapi/${System.currentTimeMillis}")
   order20Set.print()
