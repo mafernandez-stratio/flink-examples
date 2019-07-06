@@ -33,12 +33,12 @@ object StockAnalysis extends App {
   }
 
   // Compute per window statistics
-  val change = data
+  /*val change = data
     .keyBy(_._3)
     .window(TumblingEventTimeWindows.of(Time.minutes(1)))
     .process(new TrackChange())
 
-  change.writeAsText(s"/tmp/flink/stock/$uuid/report.txt")
+  change.writeAsText(s"/tmp/flink/stock/$uuid/report.txt")*/
 
   // Alert when price change from one window to another is more than threshold
   val largeDelta = data

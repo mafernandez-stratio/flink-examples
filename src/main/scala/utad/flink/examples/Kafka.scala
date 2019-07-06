@@ -11,7 +11,7 @@ object Kafka extends App {
 
   val env =  StreamExecutionEnvironment.getExecutionEnvironment
 
-  val p = new Properties();
+  val p = new Properties()
   p.setProperty("bootstrap.servers", "127.0.0.1:9092")
 
   val kafkaData = env.addSource(new FlinkKafkaConsumer011("test", new SimpleStringSchema(), p))
