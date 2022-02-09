@@ -10,7 +10,7 @@
 
     <properties>
         <flink.version>1.8.3</flink.version>
-        <hdfs.version>2.7.7</hdfs.version>
+        <hdfs.version>2.10.1</hdfs.version>
         <scala.version>2.11</scala.version>
     </properties>
 
